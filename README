@@ -1,0 +1,45 @@
+README
+======
+
+SoXt is an alternative to SGIs InventorXt library, which is a GUI binding
+for using Open Inventor with Xt/Motif.  While SoXt has been developed for
+use with Coin, it is also possible to compile it against Open Inventor
+from SGI or TGS.  A goal is to eventually become 100% source code
+compatible with the InventorXt library, which is still way off, especially
+when it comes to creating derived classes.  
+
+
+INSTALLATION
+============
+
+Installing SoXt is a matter of running the configure script with the right
+options, getting it to pass all its tests, and run "make install" afterwards.
+These two phases has each a set of common problems which will be gathered
+and described below.
+
+
+The Configure Phase (running SoXt/configure)
+--------------------------------------------
+
+The file INSTALL contains generic information about running the configure
+script.  It's a good idea to have read that file one time or another, but
+it's the same file as in every other autoconf-based project and this one
+contains no extra information.  Anyways, here are some common problems:
+
+* configure immediately tells you it can't find the source files
+
+  My guess is that you are trying to run configure from a separate build
+  directory, and you have started SoXt/configure with a relative pathname
+  that traverses some symbolic link.  Configure doesn't handle that, so
+  you can either cd into your build directory using the hard path, or you
+  can use the absolute pathname for SoXt/configure
+
+* configure doesn't find Coin (or coin-config)
+
+  To detect Coin, configure looks for the script called coin-config, which
+  is installed in bin/ where you installed Coin.  You do probably not have
+  that bin-directory in your PATH variable, so configure won't find where
+  it is.  The solution is to either add {Coin-prefix}/bin to $PATH, or you
+  can run SoXt/configure with the "--with-coin={Coin-prefix}" option.
+
+

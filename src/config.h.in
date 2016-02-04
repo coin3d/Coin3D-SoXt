@@ -1,0 +1,150 @@
+/* src/config.h.in.  Generated from configure.ac by autoheader.  */
+
+
+#ifndef SOXT_INTERNAL
+#error this is a private header file
+#endif /* !SOXT_INTERNAL */
+
+#include <Xm/Xm.h>
+
+
+/* Version string for Motif */
+#undef GUI_TOOLKIT_VERSION
+
+/* The CPP compiler has a variable containing the current function name */
+#undef HAVE_CPP_COMPILER_FUNCTION_NAME_VAR
+
+/* The C compiler has a variable containing the current function name */
+#undef HAVE_C_COMPILER_FUNCTION_NAME_VAR
+
+/* Define to 1 if you have the <dlfcn.h> header file. */
+#undef HAVE_DLFCN_H
+
+/* Define to use GetEnvironmentVariable() instead of getenv() */
+#undef HAVE_GETENVIRONMENTVARIABLE
+
+/* define if the GLU header should be included as GL/glu.h */
+#undef HAVE_GL_GLU_H
+
+/* define if the GL header should be included as GL/gl.h */
+#undef HAVE_GL_GL_H
+
+/* Define to 1 if you have the <inttypes.h> header file. */
+#undef HAVE_INTTYPES_H
+
+/* Define to enable Linux Joystick driver support */
+#undef HAVE_JOYSTICK_LINUX
+
+/* define this if -lXmu can be used */
+#undef HAVE_LIBXMU
+
+/* Define this to use libXpm */
+#undef HAVE_LIBXPM
+
+/* Define to 1 if you have the <memory.h> header file. */
+#undef HAVE_MEMORY_H
+
+/* define if the GLU header should be included as OpenGL/glu.h */
+#undef HAVE_OPENGL_GLU_H
+
+/* define if the GL header should be included as OpenGL/gl.h */
+#undef HAVE_OPENGL_GL_H
+
+/* define if pthread's struct timespec uses nsecs and not usecs */
+#undef HAVE_PTHREAD_TIMESPEC_NSEC
+
+/* Define to enable use of Inventor feature */
+#undef HAVE_SOCAMERA_SETSTEREOMODE
+
+/* Define to enable use of Inventor feature */
+#undef HAVE_SOKEYBOARDEVENT_DELETE
+
+/* Define to enable use of Inventor feature */
+#undef HAVE_SOMOUSEBUTTONEVENT_BUTTON5
+
+/* Define to enable use of the Open Inventor SoPolygonOffset node */
+#undef HAVE_SOPOLYGONOFFSET
+
+/* Define to enable use of Inventor feature */
+#undef HAVE_SORTED_LAYERS_BLEND
+
+/* Define to enable use of the Open Inventor SoVRMLMaterial VRML node */
+#undef HAVE_SOVRMLMATERIAL
+
+/* Define to 1 if you have the <stdint.h> header file. */
+#undef HAVE_STDINT_H
+
+/* Define to 1 if you have the <stdlib.h> header file. */
+#undef HAVE_STDLIB_H
+
+/* Define to 1 if you have the <strings.h> header file. */
+#undef HAVE_STRINGS_H
+
+/* Define to 1 if you have the <string.h> header file. */
+#undef HAVE_STRING_H
+
+/* Define to 1 if you have the <sys/stat.h> header file. */
+#undef HAVE_SYS_STAT_H
+
+/* Define to 1 if you have the <sys/types.h> header file. */
+#undef HAVE_SYS_TYPES_H
+
+/* Define to 1 if you have the <unistd.h> header file. */
+#undef HAVE_UNISTD_H
+
+/* Define to 1 if you have the <windows.h> header file. */
+#undef HAVE_WINDOWS_H
+
+/* Name of package */
+#undef PACKAGE
+
+/* Define to the address where bug reports for this package should be sent. */
+#undef PACKAGE_BUGREPORT
+
+/* Define to the full name of this package. */
+#undef PACKAGE_NAME
+
+/* Define to the full name and version of this package. */
+#undef PACKAGE_STRING
+
+/* Define to the one symbol short name of this package. */
+#undef PACKAGE_TARNAME
+
+/* Define to the home page for this package. */
+#undef PACKAGE_URL
+
+/* Define to the version of this package. */
+#undef PACKAGE_VERSION
+
+/* define this to the SoXt beta version letter */
+#undef SOXT_BETA_VERSION
+
+/* Define this to device handle to fallback on */
+#undef SOXT_LINUX_JOYSTICK_DEVICE
+
+/* SoXt major version */
+#undef SOXT_MAJOR_VERSION
+
+/* SoXt micro version */
+#undef SOXT_MICRO_VERSION
+
+/* SoXt minor version */
+#undef SOXT_MINOR_VERSION
+
+/* Version string for SoXt (major.minor.micro) */
+#undef SOXT_VERSION
+
+/* Define to 1 if you have the ANSI C header files. */
+#undef STDC_HEADERS
+
+/* Define to make Coin use/catch exceptions at some particular places. */
+#undef USE_EXCEPTIONS
+
+/* Version number of package */
+#undef VERSION
+
+/* Define this if you want defaults to be linked into SoXt */
+#undef WITH_STATIC_DEFAULTS
+
+/* Define to 1 if the X Window System is missing or not being used. */
+#undef X_DISPLAY_MISSING

@@ -1,0 +1,31 @@
+This file describes some hacking techniques that are particular
+for the Open Inventor GUI toolkit family.
+
+Be sure to check Coin/HACKING for Coin-specific tricks and more
+generic information, plus the src/Inventor/Xt/common/HACKING file for
+some hints common to all GUI interface toolkits.
+
+
+0 Debugging X11 Window System Protocol Errors
+=============================================
+
+  Because X11 does asynchronous client-server communication, it can be
+  hard to debug: in the default setup, you can't simply set up
+  breakpoints and get a sensible backtrace. So for information on how
+  to debug X11 problems, see this link for a very thorough
+  walk-through of the issues one should know about:
+
+        <URL:http://www.rahul.net/kenton/perrors.html>
+
+
+  In SoXt, we've written some support code to automatically call
+
+        XSynchronize(<display>,True)
+
+  ..if the SOXT_XSYNC environment variable is set to "1".
+
+  So to debug X11 errors in SoXt, set SOXT_XSYNC=1 in your
+  environment, then load your SoXt-based application in a debugger,
+  set a breakpoint on main(), execute the application, then set a
+  breakpoint on _XError, then continue execution. When the application
+  now fails, you should be able to get a sensible backtrace.

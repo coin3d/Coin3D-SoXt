@@ -1,0 +1,304 @@
+=====================================================================
+NOTE: see also src/Inventor/Xt/common/BUGS.txt.
+=====================================================================
+This is a list of issues that needs to be investigated and fixed.  The
+number is just the chronologic numeric id, and has no bearing on what
+priority the item has.
+=====================================================================
+
+000 Tooltips on viewer buttons.
+
+    The functionality of the different viewer pushbuttons is not
+    entirely obvious, so we should add tooltips on the buttons.
+
+    20030114 mortene.
+
+========================================================================
+
+001 With SoXt, when doing a deco on/off, I get a bad size on my views.
+    Mainly the decoartion size is badly taken into account at the level
+    of the GL widget.
+
+    In the join .diff file I propose to fix that by introducing a
+    resizeCB on the GLWidget that will take into account the needed
+    corrections to handle decoration size on this widget.
+
+    [patches was attached]
+
+    Reported by Guy Barrand
+
+    Update 20030204 larsa:
+
+    The proposed solution needs at least /some/ reworking to not drag
+    Widget-specific stuff into the public API of the generic components. 
+
+========================================================================
+
+002 When I have a program that creates a SoGtkExaminerViewer or an
+    SoXtExaminerViewer; by default the viewer is in viewing mode (which
+    is ok) but the cursor is in picking mode!
+
+    Reported by Guy Barrand
+
+========================================================================
+
+003 Assertion failed: visual != (Visual *) NULL && colormap != 0, file
+    SoXtThumbWheel.cpp, line 455 (when running under Uim/X)
+
+    Reported by Mark Anderson
+
+========================================================================
+
+004 "Dark Screen" e.g. the colors are all wrong, very dark, can't see
+    any menu items or popup text
+
+    Reported by Mark Anderson
+
+    Update 20030408 larsa:
+
+    I can reproduce a problem that seems to be the same one on Linux by
+    explicitly selecting a Visual in the DirectColor class.  Run
+    "glxinfo -t" to find one, and set the environment variable
+    SOXT_SELECT_VISUAL to the XVisualID of the visual you want to force
+    SoXt into selecting.
+
+========================================================================
+
+005 Porting Coin/SoXt to work with NuTCracker from MKS.  NuTCracker
+    is pretty similar to cygwin but I'm not sure of all the differences.
+    We are having problems running the config scripts because they
+    recognize the system as Windows-based instead of Unix-based, like
+    a cygwin system would.  However, NuTCracker uses Visual C++ and
+    Absoft Fortran for compilers, not gcc.
+
+    Reported by Mark Anderson
+
+========================================================================
+
+006 The SoXtColorEditor is missing.
+
+    This widget is part of the SoXtMaterialEditor.  It was made public
+    in TGS Inventor 3.0, reportedly.
+
+    Reported by Mark Anderson
+
+    Update 20030410 larsa:
+
+    Only cosmetics remains on this one.
+
+========================================================================
+
+007 The SoXtMaterialEditor is missing
+
+    Assuming people are interested in this one too.
+
+    Update 20030422 larsa:
+
+    Should be only cosmetics left on this one.
+
+========================================================================
+
+008 The class hierarchy doesn't match the original SGI hierarchy in the
+    protected: sections of different classes.
+
+    Reported by Mark Anderson
+
+========================================================================
+
+013 Something is fishy with how the default visual, colormap and depth
+    are picked out (SoXtInternal, SoXtThumbWheel) - cause X errors on
+    IRIX.
+    
+    Reported by Morten Eriksen
+ 
+    Update 20030422 larsa:  Couldn't reproduce.
+
+    Maybe if I reverse this part about configuring the IRIX Xserver to
+    use 24-bit visuals by default in question 71 in the
+    comp.sys.sgi.graphics FAQ
+    <URL:http://www-viz.tamu.edu/~sgi-faq/faq/html-1/graphics.html>,
+    I might be able to reproduce?
+
+========================================================================
+
+014 SoXtComponent::setFullScreen() does not work
+
+    Code that works for non-realized widgets was submitted, but not
+    code that can toggle already opened windows.
+
+    Reported by Fernando Vega
+
+========================================================================
+
+015 New windows pop up in the top-left corner at coordinate (0,0),
+    while for the other toolkits, they pop up centered.  This is with
+    the larswm window manager - don't know if this is a problem with
+    any other wm.  Nevertheless, it clearly indicates that something
+    is non-standard with the initial window attributes.
+
+    Reported by Lars J. Aas
+
+    Update 2003-03-17 larsa:
+
+    This is apparently a bug in Motif - giving the WM PPosition hints
+    for position 0, 0.  Some WMs know about this and will ignore Motif,
+    but some WMs don't.  My attempts at removing the incorrect WM hints
+    have so far been unsuccessful.
+ 
+
+========================================================================
+
+016 Crash with embedded SoXtExaminerViewer.
+
+    Reported by Kai Benndorf on coin-discuss:
+
+        i'm trying to port an application from SGI/TGS Inventor to
+        Coin using SoXt under Linux. There is a SoXtExaminerViewer
+        embedded in an wxWindows Window. The way it was done works
+        good with SGI/TGS SoXt, but not with Coins SoXt (The
+        application crashes on creating the pixmaps for the viewer
+        buttons, embedding of SoXtRenderArea works ok).
+
+        [...]
+
+        i've looked into the SoXt library myself, but don't found
+        anything wrong. So i tried to reproduce the error in a small
+        Motif (not wxWindows) example. The results is the appended
+        example program. It crashes at the same place as my
+        application. It works, if i use a SoXtRenderArea instead of
+        the SoXtExaminerViewer or build the SoXtExaminerViewer non
+        embedded.
+
+    Program to reproduce problem:
+
+    ------8<---- [snip] -----------8<---- [snip] -----------8<---
+    #include <stdio.h>
+    #include <stdlib.h>
+    #include <string.h>
+    
+    #include <X11/Intrinsic.h>
+    #include <Xm/Xm.h>
+    #include <Xm/Form.h>
+    
+    #include <Inventor/Xt/SoXt.h>
+    #include <Inventor/Xt/viewers/SoXtExaminerViewer.h>
+    
+    void
+    main ( int argc , char **argv )
+    {
+      Widget rootWidget;
+      XtToolkitInitialize();
+      XtAppContext appContext = XtCreateApplicationContext();
+      Display* display = XtOpenDisplay( appContext, NULL, NULL, "Gradian", NULL, 0, 
+    			   &argc, argv );
+    
+      rootWidget = XtAppCreateShell( NULL, "Gradian", applicationShellWidgetClass,
+    		    display, NULL, 0 );
+    
+      SoXt::init( rootWidget );
+    
+      Widget theMainForm = XtCreateWidget( "visMainForm" , xmFormWidgetClass ,
+    				     rootWidget , NULL , 0 );
+    
+      // The embedded viewer don't work
+      SoXtExaminerViewer *theViewer = new SoXtExaminerViewer( theMainForm ,
+               "examinerArea" , true , SoXtFullViewer::BUILD_ALL ,
+               SoXtViewer::EDITOR );
+    
+      // a embedded SoXtRenderArea works
+    //   SoXtRenderArea *theViewer = new SoXtRenderArea( theMainForm ,
+    //       "examinerArea" , true  );
+    
+      // and a non ebedded SoXtExaminerViewer works
+    //   SoXtExaminerViewer *theViewer = new SoXtExaminerViewer( NULL ,
+    //            "examinerArea" , true , SoXtFullViewer::BUILD_ALL ,
+    //            SoXtViewer::EDITOR );
+    
+    
+      Widget viewerWidget = theViewer->getWidget();
+      
+      Arg args[ 6 ];
+      int n = 0;
+      XtSetArg( args[n] , XmNtopAttachment , XmATTACH_FORM ); n++;
+      XtSetArg( args[n] , XmNleftAttachment , XmATTACH_FORM ); n++;
+      XtSetArg( args[n] , XmNrightAttachment , XmATTACH_FORM ); n++;
+      XtSetArg( args[n] , XmNbottomAttachment , XmATTACH_FORM ); n++;
+      XtSetValues( viewerWidget , args , n );
+    
+      theViewer->show();
+      SoXt::show( theMainForm );
+      SoXt::show( rootWidget );
+    
+    
+      XtRealizeWidget( rootWidget );
+      SoXt::mainLoop();
+    
+    }
+    ------8<---- [snip] -----------8<---- [snip] -----------8<---
+
+    20030217 mortene.
+
+========================================================================
+
+017 Wrong cursor at start-up.
+
+    The following dead-simple example demonstrates a bug with SoXt. At
+    start-up, the mode is "interact with camera", but the cursor
+    graphics is as for "interact with scene graph". (Click LMB and
+    drag, and then the cursor graphics gets corrected to what it
+    should be from the start.)
+
+    ------8<---- [snip] -----------8<---- [snip] -----------8<---
+    #include <Inventor/Xt/SoXt.h>
+    #include <Inventor/Xt/viewers/SoXtExaminerViewer.h>
+    #include <Inventor/nodes/SoSeparator.h>
+    #include <Inventor/nodes/SoCube.h>
+    
+    int
+    main(int argc, char ** argv) 
+    {
+      Widget top = SoXt::init(argv[0]);
+    
+      SoSeparator * root = new SoSeparator;
+      root->ref();
+    
+      SoCube* cube = new SoCube;
+      root->addChild(cube);
+    
+      SoXtExaminerViewer* viewer = new SoXtExaminerViewer(top);
+      viewer->setSceneGraph(root);
+    
+      SoXt::show(top);
+      SoXt::mainLoop();
+    
+      root->unref();
+      delete viewer;
+    
+      return 0;
+    }
+    ------8<---- [snip] -----------8<---- [snip] -----------8<---
+
+    20030409 mortene. Reported by Guy Barrand.
+
+========================================================================
+
+018 Sensor handling incorrect
+
+    This SoGui library has its own delayqueue timeout timer.
+    This will cause delayqueue timeouts to trigger twice since Coin
+    handles this internally as well.
+
+    In addition, the code should be reviewed for bugs related to
+    assumptions on when the global field is updated in Coin
+    (the global field is updated after SoSceneManager::render(),
+    not after SoSceneManager::redraw() as was the case earlier.
+
+    I suspect further bugs to surface when the issues above are fixed,
+    so a thorough code review should be performed.
+
+    See the Sc21 source code for en example of how this should be done.
+
+    20040921 kintel.
+
+=====================================================================
+
